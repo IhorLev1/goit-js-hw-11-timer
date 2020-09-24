@@ -9,7 +9,7 @@ const refs = {
 
 const timer = {
   intervalId: null,
-  targetDate: new Date("11/25/2020"),
+  targetDate: new Date("10/20/2020"),
   start() {
     updateClockface(0);
 
@@ -17,11 +17,11 @@ const timer = {
       const startTime = Date.now();
       const deltaTime = this.targetDate - startTime;
 
+      if (deltaTime <= 0) {
+        clearInterval(this.intervalId);
+      }
       updateClockface(deltaTime);
     }, 1000);
-    if (deltaTime <= 0) {
-      clearInterval(this.intervalId);
-    }
   },
 };
 function updateClockface(time) {
@@ -36,6 +36,7 @@ function updateClockface(time) {
   refs.secs.textContent = `${secs}`;
 }
 timer.start();
+
 function pad(value) {
   return String(value).padStart(2, "0");
 }
